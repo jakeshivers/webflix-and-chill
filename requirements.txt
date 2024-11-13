@@ -1,0 +1,4 @@
+dbt-core==1.7.0
+dbt-snowflake==1.7.0
+dagster-dbt==0.22.0
+dagster-webserver==1.6.0
