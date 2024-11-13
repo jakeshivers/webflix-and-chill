@@ -12,7 +12,7 @@ warehouse:
       role: accountadmin
       database: warehouse
       warehouse: xsmall_wh
-      schema: raw
+      schema: staging
       threads: 12
       client_session_keep_alive: False
 
