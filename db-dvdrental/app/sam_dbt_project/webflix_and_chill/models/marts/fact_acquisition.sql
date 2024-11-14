@@ -4,9 +4,10 @@
     )
 }}
 
-select
+SELECT
     cust.CUSTOMER_ID||cust.CREATE_DATE acquisition_id
     ,cust.CUSTOMER_ID
+    ,cust.STORE_ID
     ,cust.CREATE_DATE ACQUISITION_DATE
     ,add.CITY_ID
     ,count(rentals.rental_id) rentals
@@ -17,6 +18,7 @@ JOIN {{ source('dvd_rental', 'rental') }} as rentals
     ON rentals.customer_id = cust.customer_id
 GROUP BY cust.CUSTOMER_ID||cust.CREATE_DATE
     ,cust.CUSTOMER_ID
+    ,cust.STORE_ID
     ,cust.CREATE_DATE
     ,add.CITY_ID
 ORDER BY cust.CUSTOMER_ID    
