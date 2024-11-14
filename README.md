@@ -32,3 +32,13 @@ Please find below a high level description of each of the architecture blocks:
     - Also DBT is Dockerized and deployed in EC2.
  - Preset consumes the OBFT from Snowflake and reports / Dashboard are prepared in it
 
+
+### Project Management
+
+To breakdown the tasks and assign them to each team member, we have created a Kanban in Jira:
+https://dataengineerproject.atlassian.net/jira/software/projects/P2G1/boards/3
+
+In order to track & merge code changes, as well as develop in parallel, we are using Github for the code versioning, each team member havin its own branch:
+https://github.com/jakeshivers/webflix-and-chill
+
+Since the team is divided in different timezones, we tried to work as asynchronously as possible using the Slack group to communicate and classes to meet, align status and define next steps.
