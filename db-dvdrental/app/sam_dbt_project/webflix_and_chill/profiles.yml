@@ -3,14 +3,14 @@ warehouse:
   outputs:
     dev:
       type: snowflake
-      account: rz61364.eu-central-1
+      account: ft92683.eu-west-1
 
       # User/password auth
-      user: '{{ env_var("SNOWFLAKE_USERNAME") }}'
-      password: '{{ env_var("SNOWFLAKE_PASSWORD") }}'
+      user: 'sam' #'{{ env_var("SNOWFLAKE_USERNAME") }}'
+      password: 'P10$$word' #'{{ env_var("SNOWFLAKE_PASSWORD") }}'
 
       role: accountadmin
-      database: warehouse
+      database: dw
       warehouse: xsmall_wh
       schema: marts
       threads: 12

@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: dvd_rental
-    database: DATA_ENGINEER_BOOTCAMP
-    schema: PUBLIC
+    database: db
+    schema: dvd_rental
     tables:
       - name: actor
       - name: category
