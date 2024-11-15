@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 ENV SNOWFLAKE_USERNAME="sam"
-ENV SNOWFLAKE_PASSWORD="my secret password"
+ENV SNOWFLAKE_PASSWORD='P10\$\$word'
 
 RUN pip install -r requirements.txt
 

@@ -7,7 +7,7 @@ version: '1.0.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'warehouse'
+profile: warehouse
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -23,6 +23,8 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
+vars:
+    "dbt_date:time_zone": "America/Denver"
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -31,12 +33,14 @@ clean-targets:         # directories to be removed by `dbt clean`
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
 models:
-  warehouse:
-    # Config indicated by + and applies to all files under models/example/
-    marts:
+  webflix_and_chill:
+    +materialized: view
+    dim:
       +materialized: table
-      +schema: marts
-        
+    src:
+      +materialized: ephemeral
 
-
-
+snapshots:
+  webflix_and_chill:
+    +strategy: timestamp
+    +updated_at: column_name

@@ -4,15 +4,14 @@ warehouse:
     dev:
       type: snowflake
       account: ft92683.eu-west-1
-
       # User/password auth
       user: 'sam' #'{{ env_var("SNOWFLAKE_USERNAME") }}'
       password: 'P10$$word' #'{{ env_var("SNOWFLAKE_PASSWORD") }}'
-
       role: accountadmin
       database: dw
       warehouse: xsmall_wh
       schema: marts
       threads: 12
-      client_session_keep_alive: False
+  target: dev
+
 

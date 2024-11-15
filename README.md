@@ -32,6 +32,24 @@ Please find below a high level description of each of the architecture blocks:
     - Also DBT is Dockerized and deployed in EC2.
  - Preset consumes the OBFT from Snowflake and reports / Dashboard are prepared in it
 
+### DBT tests
+* testing for a value set
+```bash
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ["G", "PG", "PG-13", "R", "NC-17"]
+```
+* give a warning on data freshness:
+```bash
+    tables:
+      - name: actor
+        loaded_at_field: last_update
+        freshness:
+          warn_after: {count: 1, period: day}
+```
+
+### DBT Lineage Graph
+![alt text](image.png)
 
 ### Project Management
 
