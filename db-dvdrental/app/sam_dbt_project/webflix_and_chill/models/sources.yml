@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: dvd_rental
-    database: db
-    schema: dvd_rental
+    database: DB
+    schema: DVD_Rental
     tables:
       - name: actor
       - name: category

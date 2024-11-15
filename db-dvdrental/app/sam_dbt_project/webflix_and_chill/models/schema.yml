@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: film
+    description: "Raw data pulled from the DVD_Rental source film table."
+    columns:
+      - name: film_id
+        description: "Primary key of the film table."
+      - name: title
+        description: "Title of the film."
+      - name: description
+        description: "Description of the film."
+      - name: release_year
+        description: "Year the film was released."
+
+  - name: rental
+    description: "Raw data pulled from the DVD_Rental source rental table."
+    columns:
+      - name: rental_id
+        description: "Primary key of the rental table."
+      - name: rental_date
+        description: "Date of the rental."
+      - name: customer_id
+        description: "Foreign key to the customer table."
+      - name: inventory_id
+        description: "Foreign key to the inventory table."
+
+  - name: customer
+    description: "Raw data pulled from the DVD_Rental source customer table."
+    columns:
+      - name: customer_id
+        description: "Primary key of the customer table."
+      - name: first_name
+        description: "Customer's first name."
+      - name: last_name
+        description: "Customer's last name."
+      - name: email
+        description: "Customer's email address."
+
+  - name: inventory
+    description: "Raw data pulled from the DVD_Rental source inventory table."
+    columns:
+      - name: inventory_id
+        description: "Primary key of the inventory table."
+      - name: film_id
+        description: "Foreign key to the film table."
+
+  - name: payment
+    description: "Raw data pulled from the DVD_Rental source payment table."
+    columns:
+      - name: payment_id
+        description: "Primary key of the payment table."
+      - name: customer_id
+        description: "Foreign key to the customer table."
+      - name: amount
+        description: "Amount of the payment."
+      - name: payment_date
+        description: "Date of the payment."
