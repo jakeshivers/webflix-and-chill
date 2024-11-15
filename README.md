@@ -49,7 +49,7 @@ Please find below a high level description of each of the architecture blocks:
 ```
 
 ### DBT Lineage Graph
-![alt text](image.png)
+![dbt lineage](image.png)
 
 ### Project Management
 
