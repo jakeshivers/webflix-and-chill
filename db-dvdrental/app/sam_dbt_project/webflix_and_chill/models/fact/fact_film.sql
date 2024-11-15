@@ -16,3 +16,13 @@ SELECT
     last_update
 FROM
     {{ ref('film') }}
+
+{% if is_incremental() %}
+WHERE
+    last_update > (
+        SELECT
+            MAX(last_update)
+        FROM
+            {{ this }}
+    )
+{% endif %}

@@ -5,7 +5,4 @@
 SELECT
     *
 FROM
-    {{ source(
-        'dvd_rental',
-        'category'
-    ) }} AS cust
+    {{ ref('category') }} AS category

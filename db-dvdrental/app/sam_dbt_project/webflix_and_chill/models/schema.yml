@@ -1,6 +1,100 @@
 version: 2
 
 models:
+  - name: actor
+    description: "Raw data pulled from the DVD_Rental source actor table."
+    columns:
+      - name: actor_id
+        description: "Primary key of the actor table."
+      - name: first_name
+        description: "Actor's first name."
+      - name: last_name
+        description: "Actor's last name."
+  - name: actor_info
+    description: "Raw data pulled from the DVD_Rental source actor_info table."
+    columns:
+      - name: actor_id
+        description: "Primary key of the actor table."
+        tests:
+          - relationships:
+              to: ref('actor')
+              field: actor_id
+      - name: first_name
+        description: "Actor's first name."
+      - name: last_name
+        description: "Actor's last name."
+      - name: film_info
+        description: "Information about the films the actor has appeared in."
+
+  - name: address
+    description: "Raw data pulled from the DVD_Rental source address table."
+    columns:
+      - name: address_id
+        description: "Primary key of the address table."
+      - name: address
+        description: "Address of the customer."
+        tests:
+          - dbt_expectations.expect_column_values_to_match_regex_list:
+              regex_list:
+                - "^[0-9]+ [A-Za-z ]+$"
+              match_on: any # Pass if any regex matches (for flexibility in address format)
+              row_condition: "address != '' "   # Only test rows where `address`  is not blank
+              severity: warn
+      - name: address2
+        description: "Additional address information."
+      - name: district
+        description: "District of the address."
+      - name: city_id
+        description: "Foreign key to the city table."
+      - name: postal_code
+        description: "Postal code of the address."
+      - name: phone
+        description: "Phone number of the address."
+  - name: category
+    description: "Raw data pulled from the DVD_Rental source category table."
+    columns:
+      - name: category_id
+        description: "Primary key of the category table."
+      - name: name
+        description: "Name of the category."
+  - name: customer
+    description: "Raw data pulled from the DVD_Rental source customer table."
+    columns:
+      - name: customer_id
+        description: "Primary key of the customer table."
+      - name: store_id
+        description: "Foreign key to the store table."
+      - name: first_name
+        description: "Customer's first name."
+      - name: last_name
+        description: "Customer's last name."
+      - name: email
+        description: "Customer's email address."
+        tests:
+          - dbt_expectations.expect_column_values_to_not_be_null
+      - name: address_id
+        description: "Foreign key to the address table."
+      - name: active
+        description: "Flag indicating if the customer is active."
+      - name: create_date
+        description: "Date the customer was created."
+      - name: last_update
+        description: "Date the customer was last updated."
+  - name: film_actor
+    description: "Raw data pulled from the DVD_Rental source film_actor table."
+    columns:
+      - name: actor_id
+        description: "Foreign key to the actor table."
+      - name: film_id
+        description: "Foreign key to the film table." 
+  - name: film_category
+    description: "Raw data pulled from the DVD_Rental source film_category table."
+    columns:
+      - name: film_id
+        description: "Foreign key to the film table."
+      - name: category_id
+        description: "Foreign key to the category table."
+  
   - name: film
     description: "Raw data pulled from the DVD_Rental source film table."
     columns:
@@ -12,7 +106,44 @@ models:
         description: "Description of the film."
       - name: release_year
         description: "Year the film was released."
+      - name: rating
+        description: "Rating of the film."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ["G", "PG", "PG-13", "R", "NC-17"]
+      - name: replacement_cost
+        description: "Cost to replace the film."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 9
+              max_value: 30
+              strictly: true
 
+  - name: inventory
+    description: "Raw data pulled from the DVD_Rental source inventory table."
+    columns:
+      - name: inventory_id
+        description: "Primary key of the inventory table."
+      - name: film_id
+        description: "Foreign key to the film table."
+      - name: store_id
+        description: "Foreign key to the store table."
+  - name: payment
+    description: "Raw data pulled from the DVD_Rental source payment table."
+    columns:
+      - name: payment_id
+        description: "Primary key of the payment table."
+      - name: customer_id
+        description: "Foreign key to the customer table."
+      - name: staff_id
+        description: "Foreign key to the staff table."
+      - name: rental_id
+        description: "Foreign key to the rental table."
+      - name: amount
+        description: "Amount of the payment."
+      - name: payment_date
+        description: "Date of the payment." 
+  
   - name: rental
     description: "Raw data pulled from the DVD_Rental source rental table."
     columns:
@@ -24,35 +155,3 @@ models:
         description: "Foreign key to the customer table."
       - name: inventory_id
         description: "Foreign key to the inventory table."
-
-  - name: customer
-    description: "Raw data pulled from the DVD_Rental source customer table."
-    columns:
-      - name: customer_id
-        description: "Primary key of the customer table."
-      - name: first_name
-        description: "Customer's first name."
-      - name: last_name
-        description: "Customer's last name."
-      - name: email
-        description: "Customer's email address."
-
-  - name: inventory
-    description: "Raw data pulled from the DVD_Rental source inventory table."
-    columns:
-      - name: inventory_id
-        description: "Primary key of the inventory table."
-      - name: film_id
-        description: "Foreign key to the film table."
-
-  - name: payment
-    description: "Raw data pulled from the DVD_Rental source payment table."
-    columns:
-      - name: payment_id
-        description: "Primary key of the payment table."
-      - name: customer_id
-        description: "Foreign key to the customer table."
-      - name: amount
-        description: "Amount of the payment."
-      - name: payment_date
-        description: "Date of the payment."
