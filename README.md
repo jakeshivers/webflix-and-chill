@@ -60,6 +60,10 @@ Important to notice that due to Apache Preset limitations (can only consume a si
 ### DBT Lineage Graph
 ![dbt lineage](diagrams/dbt_data_lineage.png)
 
+### Preset Dashboard
+Please find below a screenshot of the Preset Dashboard prepared to answer business questions:
+![Preset](diagrams/Preset.png)
+
 ### Project Management
 
 To breakdown the tasks and assign them to each team member, we have created a Kanban in Jira:
